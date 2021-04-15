@@ -6,3 +6,4 @@ It is made of two parts, a [language server](./server/README.md) that can be use
 
 This is the result of deleting much of the code of the [ZC buildout LSP extension](https://github.com/perrinjerome/vscode-zc-buildout/).
 
+Here is a small [video](https://www.dropbox.com/s/3yyjnyqjq1njw8p/mylang.mov?dl=0), showing its features.

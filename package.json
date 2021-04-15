@@ -1,6 +1,6 @@
 {
-  "name": "vscode-zc-buildout",
-  "description": "A vscode extension and language server for zc.buildout",
+  "name": "vscode-mylang",
+  "description": "A vscode extension and language server for MyLang",
   "author": "Jérome Perrin",
   "license": "SEE LICENSE IN LICENSE.txt",
   "version": "0.5.0",
@@ -8,7 +8,7 @@
     "type": "git",
     "url": "https://github.com/perrinjerome/vscode-zc-buildout"
   },
-  "publisher": "perrinjerome",
+  "publisher": "alcidesfonseca",
   "categories": [],
   "keywords": [
     "multi-root ready"
@@ -17,52 +17,43 @@
     "vscode": "^1.43.0"
   },
   "activationEvents": [
-    "onLanguage:zc-buildout"
+    "onLanguage:mylang"
   ],
   "main": "./client/out/extension",
   "contributes": {
     "languages": [
       {
-        "id": "zc-buildout",
+        "id": "mylang",
         "extensions": [
-          ".in",
-          ".cfg"
+          ".mylang"
         ],
         "configuration": "./language-configuration.json"
       }
     ],
     "grammars": [
       {
-        "scopeName": "source.zc-buildout",
-        "path": "./syntaxes/zc.buildout.tmGrammar.json"
-      },
-      {
-        "language": "zc-buildout",
-        "scopeName": "source.zc-buildout-jinja",
-        "path": "./syntaxes/jinja+zc.buildout.tmGrammar.json"
+        "scopeName": "source.mylang",
+        "path": "./syntaxes/mylang.tmGrammar.json"
       }
     ],
     "configuration": {
       "type": "object",
-      "title": "vscode-zc-buildout extension configuration",
+      "title": "MyLang configuration",
       "properties": {
-        "zc-buildout.python.executable": {
+        "mylang.python.executable": {
           "scope": "application",
           "type": "string",
           "default": "python3",
           "description": "Path of python installation to use language server. This needs to be python >= 3.6"
         },
-        "zc-buildout.language.server.arguments": {
+        "mylang.language.server.arguments": {
           "scope": "application",
           "type": "array",
           "items": {
             "type": "string"
           },
           "examples": [
-            [
-              "--logfile",
-              "buildoutls.log"
-            ]
+            []
           ],
           "description": "Command line arguments when lauching language server."
         }

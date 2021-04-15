@@ -30,7 +30,7 @@ interface Settings {
  */
 function isExtensionInstalled(python: string): boolean {
   try {
-    child_process.execFileSync(python, ["-m", "buildoutls", "--check-install"]);
+    child_process.execFileSync(python, ["-m", "mylangcompiler", "--check-install"]);
     return true;
   } catch {
     return false;
@@ -62,16 +62,16 @@ export async function activate() {
     python: {
       executable: vscode.workspace
         .getConfiguration()
-        .get("zc-buildout.python.executable")
+        .get("mylang.python.executable")
     }
   };
   vscode.workspace.onDidChangeConfiguration(e => {
-    if (e.affectsConfiguration("zc-buildout.python.executable")) {
+    if (e.affectsConfiguration("mylang.python.executable")) {
       vscode.window.showInformationMessage(
         "New python selected (" +
           vscode.workspace
             .getConfiguration()
-            .get("zc-buildout.python.executable") +
+            .get("mylang.python.executable") +
           "): needs application restart"
       );
     }
@@ -79,32 +79,32 @@ export async function activate() {
 
   let serverExecutable: Executable = {
     command: settings.python.executable,
-    args: ["-m", "buildoutls"].concat(
+    args: ["-m", "mylangcompiler"].concat(
       vscode.workspace
         .getConfiguration()
-        .get("zc-buildout.language.server.arguments")
+        .get("mylang.language.server.arguments")
     )
   };
 
   // Options to control the language client
   let clientOptions: LanguageClientOptions = {
     // Register the server for buildout files
-    documentSelector: [{ language: "zc-buildout" }],
+    documentSelector: [{ language: "mylang" }],
     synchronize: {
-      fileEvents: workspace.createFileSystemWatcher("**/*.{cfg,in,j2}")
+      fileEvents: workspace.createFileSystemWatcher("**/*.mylang")
     }
   };
 
   client = new LanguageClient(
-    "zc-buildout",
-    "zc.buildout Language Server",
+    "mylang",
+    "mylang Language Server",
     serverExecutable,
     clientOptions
   );
 
   if (!isPythonVersionCompatible(settings.python.executable)) {
     vscode.window.showErrorMessage(
-      "zc.buildout extension: Invalid python version, needs python >= 3.6"
+      "mylang extension: Invalid python version, needs python >= 3.6"
     );
     return false;
   }
@@ -113,16 +113,16 @@ export async function activate() {
   let installationOK = isExtensionInstalled(settings.python.executable);
   if (!installationOK) {
     let answer = await vscode.window.showQuickPick(["Yes", "No"], {
-      placeHolder: `buildout-language-server is not installed on ${settings.python.executable}. Do you want to install it now ?`
+      placeHolder: `mylang-language-server is not installed on ${settings.python.executable}. Do you want to install it now ?`
     });
     if (answer !== "Yes") {
       return false;
     }
 
-    const terminal = vscode.window.createTerminal("zc-buildout");
+    const terminal = vscode.window.createTerminal("mylang");
     terminal.show(false);
     terminal.sendText(
-      "# Install buildout-language-server on selected python.\n"
+      "# Install mylang-language-server on selected python.\n"
     );
     terminal.sendText(
       `${settings.python.executable} -m pip install --user -e "${__dirname}/../../server/"
@@ -134,11 +134,11 @@ export async function activate() {
     }
     if (installationOK) {
       vscode.window.showInformationMessage(
-        "zc.buildout extension: installed language server"
+        "mylang extension: installed language server"
       );
     } else {
       vscode.window.showErrorMessage(
-        "zc.buildout extension: Could not install language server"
+        "mylang extension: Could not install language server"
       );
     }
     client.start();

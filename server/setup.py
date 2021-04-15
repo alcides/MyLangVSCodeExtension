@@ -14,9 +14,9 @@ with open(path.join(here, 'CHANGELOG.md'), encoding='utf-8') as f:
   long_description += f.read()
 
 setup(
-    name='zc.buildout.languageserver',
+    name='mylang.languageserver',
     version='0.5.0',
-    description='A language server for zc.buildout',
+    description='A language server for mylang',
     long_description=long_description,
     long_description_content_type='text/markdown',
     classifiers=[
@@ -26,8 +26,8 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Programming Language :: Python :: 3',
     ],
-    keywords='zc.buildout languageserver',
-    packages=['buildoutls'],
+    keywords='mylang languageserver',
+    packages=['mylangcompiler'],
     python_requires='>=3.6.*',
     install_requires=[
         'pygls >= 0.10.1',

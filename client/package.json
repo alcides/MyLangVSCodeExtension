@@ -1,6 +1,6 @@
 {
-  "name": "vscode-zc-buildout",
-  "description": "VSCode part of buildout extension",
+  "name": "vscode-mylang",
+  "description": "VSCode part of MyLang",
   "author": "Jérome Perrin",
   "license": "SEE LICENSE IN LICENSE.txt",
   "publisher": "perrinjerome",

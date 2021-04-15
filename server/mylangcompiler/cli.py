@@ -8,8 +8,8 @@ from .server import server
 def main() -> None:
 
   parser = argparse.ArgumentParser(
-      'buildoutls',
-      description='zc.buildout language server',
+      'mylangls',
+      description='mylang language server',
   )
 
   parser.add_argument(
